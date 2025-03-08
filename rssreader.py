@@ -16,13 +16,16 @@ def extract_text(element):
         return element.text
     return None
 
-def node_tuple(root):
+def node_tuples(root):
     items = root.findall('.//item')
+    nodes = []
     for item in items:
         title = extract_text(item.find('title'))
         link = extract_text(item.find('link'))
         description = extract_text(item.find('description'))
-        return title, description, link
+        if title and link and description:
+            nodes.append(f'\n*{title}*\n{description}\n{link}\n')
+    return nodes
 
 def articales_links(root):
     items = root.findall('.//item')
@@ -41,7 +44,11 @@ def aggregate_news():
         for url in rss_feed_urls:    
             rss_feed = request_rss(url)
             root = ET.fromstring(rss_feed)
-            lines = node_tuple(root)  # The file is now handled by the with statement
+            lines = node_tuples(root)  # The file is now handled by the with statement
             report.writelines(['*',lines[0],'*\n',lines[1],'\n',lines[2],'\n'])
     
     return file_path  # Return the path instead of file object
+
+if __name__ == "__main__":
+    aggregate_news()
+    print('digest created')
