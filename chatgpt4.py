@@ -39,7 +39,7 @@ def create_content(digest_file):
     print(links)
     time.sleep(10)
     message = Chatgpt4(f'''
-                 I will provide list of links for news, I want you to provide title and brief in Arabic, dont write anything other than the list, in markdown as the following:
+                 I will provide list of links for news, I want you to provide title and brief in Arabic, dont write anything other than the list, answer in markdown as the following without the code fence:
                  ```
                  *title*
                  Brief of the article no more than 250 words
@@ -54,4 +54,6 @@ def create_content(digest_file):
     return file_path
 
 if __name__=='__main__':
-    create_content()
+    digest_file = f'data/latest{datetime.datetime.date(datetime.datetime.now())}.md'
+    print(digest_file)
+    create_content(digest_file)
