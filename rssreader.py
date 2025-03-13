@@ -16,7 +16,7 @@ def extract_text(element):
         return element.text
     return None
 
-def node_tuples(root):
+def node_formatted(root):
     items = root.findall('.//item')
     nodes = []
     for item in items:
@@ -44,8 +44,8 @@ def aggregate_news():
         for url in rss_feed_urls:    
             rss_feed = request_rss(url)
             root = ET.fromstring(rss_feed)
-            lines = node_tuples(root)  # The file is now handled by the with statement
-            report.writelines(['*',lines[0],'*\n',lines[1],'\n',lines[2],'\n'])
+            lines = node_formatted(root)  # The file is now handled by the with statement
+            report.writelines(lines)
     
     return file_path  # Return the path instead of file object
 
