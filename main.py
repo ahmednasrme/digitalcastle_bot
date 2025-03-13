@@ -3,12 +3,14 @@ from datetime import datetime
 import rssreader
 import chatgpt4
 import send_daily
+import os
 
 # Set up logging
+os.makedirs('logs', exist_ok=True)
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s',
-    filename=f'workflow_{datetime.now().strftime("%Y%m%d")}.log'
+    filename=f'logs/workflow_{datetime.now().strftime("%Y%m%d")}.log'
 )
 
 def main():
