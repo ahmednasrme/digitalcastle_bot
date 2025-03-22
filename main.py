@@ -2,6 +2,7 @@ import logging
 from datetime import datetime
 import rssreader
 import chatgpt4
+import gemini
 import send_daily
 import os
 
@@ -23,7 +24,7 @@ def main():
         
         # Step 2: Generate message content using ChatGPT
         logging.info("Generating message content with ChatGPT")
-        message_file = chatgpt4.create_content(digest_file)
+        message_file = gemini.generate(digest_file)
         if not message_file:
             raise Exception("Failed to generate message content")
         
